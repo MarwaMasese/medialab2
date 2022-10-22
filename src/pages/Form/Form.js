@@ -3,14 +3,13 @@ import './form.css'
 
 const WorkoutForm = () => {
   const [title, setTitle] = useState('')
-  const [load, setLoad] = useState('')
-  const [reps, setReps] = useState('')
+  const [desc, setDesc] = useState('')
   const [error, setError] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const workout = {title, load, reps}
+    const workout = {title, desc}
     
     const response = await fetch('/api/workouts', {
       method: 'POST',
@@ -27,8 +26,7 @@ const WorkoutForm = () => {
     if (response.ok) {
       setError(null)
       setTitle('')
-      setLoad('')
-      setReps('')
+      setDesc('')
       console.log('new workout added:', json)
     }
 
@@ -36,9 +34,9 @@ const WorkoutForm = () => {
 
   return (
     <form className="create" onSubmit={handleSubmit}> 
-      <h3>Add a New Workout</h3>
+      <h3>Add New Post</h3>
 
-      <label>Excersize Title:</label>
+      <label>Post Title Title:</label>
       <input 
         type="text" 
         onChange={(e) => setTitle(e.target.value)} 
@@ -46,7 +44,7 @@ const WorkoutForm = () => {
       />
 
       <label>Description:</label>
-      <text 
+      <textarea 
         type="text" 
         onChange={(e) => setDesc(e.target.value)} 
         value={desc}
@@ -58,7 +56,7 @@ const WorkoutForm = () => {
         value={file}
       /> */}
 
-      <button>Add Workout</button>
+      <button>Add Post</button>
       {error && <div className="error">{error}</div>}
     </form>
   )
