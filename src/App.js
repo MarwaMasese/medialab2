@@ -20,7 +20,7 @@ const App = () => {
             />
              <Route 
               path="/about" 
-              element={About}
+              element={<About/>}
             />
             <Route 
               path="/create" 

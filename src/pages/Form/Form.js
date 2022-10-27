@@ -1,65 +1,55 @@
-import { useState } from 'react'
-import './form.css'
+import {useState} from 'react'
 
-const WorkoutForm = () => {
-  const [title, setTitle] = useState('')
-  const [desc, setDesc] = useState('')
-  const [error, setError] = useState(null)
 
-  const handleSubmit = async (e) => {
+const Form = () => {
+  const [title, setTitle]= useState('')
+  const [content, setContent]= useState('')
+  const [error, setError]= useState('')
+  const handleSubmit = async(e)=>{
     e.preventDefault()
 
-    const workout = {title, desc}
-    
-    const response = await fetch('/api/workouts', {
-      method: 'POST',
-      body: JSON.stringify(workout),
-      headers: {
+    const blog = {title,content }
+
+    const response = await fetch('/api/blogs', {
+      method:'POST',
+      body: JSON.stringify(blog) ,
+      headers:{
         'Content-Type': 'application/json'
+
       }
     })
     const json = await response.json()
 
-    if (!response.ok) {
+    if(!response.ok){
       setError(json.error)
     }
-    if (response.ok) {
-      setError(null)
+    if(response.ok){
       setTitle('')
-      setDesc('')
-      console.log('new workout added:', json)
+      setContent('')
+      setError(null)
+      console.log('New Blog added', json)
     }
-
   }
 
-  return (
-    <form className="create" onSubmit={handleSubmit}> 
-      <h3>Add New Post</h3>
+  return (  
+    <Form className= 'create' onSubmit= {handleSubmit}>
+      <h3> CREATE A NEW BLOG</h3>
 
-      <label>Post Title Title:</label>
-      <input 
-        type="text" 
-        onChange={(e) => setTitle(e.target.value)} 
-        value={title}
-      />
+      <label> Blog Title</label>
 
-      <label>Description:</label>
-      <textarea 
-        type="text" 
-        onChange={(e) => setDesc(e.target.value)} 
-        value={desc}
-      />
-      {/* <label>Image:</label>
-      <input 
-        type="file" 
-        onChange={(e) => setImage(e.target.value)} 
-        value={file}
-      /> */}
+      <input onChange = {(e)=>
+      setTitle(e.target.value)} value= {title}/>
 
-      <button>Add Post</button>
-      {error && <div className="error">{error}</div>}
-    </form>
-  )
+       <label> Blog Content</label>
+
+      <text onChange = {(e)=>
+      setContent(e.target.value)} value= {title}/>
+
+      
+        <button> Add Blog</button>
+    </Form>
+
+  );
 }
-
-export default WorkoutForm
+ 
+export default Form;
